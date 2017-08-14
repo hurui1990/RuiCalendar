@@ -1,11 +1,13 @@
 package com.hurui.customcalendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -45,12 +47,15 @@ public class RuiCalendarAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View contentView, ViewGroup parent) {
 		Date itemDate = mDates.get(position);
+		Date nowDate = new Date();
 		Log.i("===========",""+itemDate);
 		ViewHolder viewHolder = null;
 		if(contentView == null){
 			viewHolder = new ViewHolder();
 			contentView = mInflater.inflate(R.layout.calendar_day_view, parent,false);
 			viewHolder.txtDate = (TextView) contentView.findViewById(R.id.txt_calendar_day);
+			viewHolder.txtLunarDate = (TextView) contentView.findViewById(R.id.txt_lunar_date);
+			viewHolder.calendar_day = (LinearLayout) contentView.findViewById(R.id.calendar_day_view);
 			contentView.setTag(viewHolder);
 		}else {
 			viewHolder = (ViewHolder) contentView.getTag();
@@ -59,12 +64,24 @@ public class RuiCalendarAdapter extends BaseAdapter {
 			contentView.setVisibility(View.GONE);
 		}else {
 			contentView.setVisibility(View.VISIBLE);
+			Lunar lunar = new Lunar(itemDate);
 			viewHolder.txtDate.setText(String.valueOf(itemDate.getDate()));
+			viewHolder.txtLunarDate.setText(Lunar.getChinaDayString(lunar.day)+"");
+			if(nowDate.getDate() == itemDate.getDate()
+					&& nowDate.getYear() == itemDate.getYear()
+					&& nowDate.getMonth() == itemDate.getMonth()){
+				viewHolder.txtDate.setTextColor(Color.parseColor("#ff0000"));
+				viewHolder.txtLunarDate.setTextColor(Color.parseColor("#ff0000"));
+				viewHolder.calendar_day.setBackgroundColor(Color.parseColor("#FFE6E4E5"));
+			}
 		}
+
+
 		return contentView;
 	}
 
 	class ViewHolder{
-		TextView txtDate;
+		TextView txtDate, txtLunarDate;
+		LinearLayout calendar_day;
 	}
 }

@@ -60,8 +60,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         renderCalendar();
     }
 
+    //获取当前月的数据
     private void renderCalendar(){
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
         mTxtDate.setText(sdf.format(mCalendar.getTime()));
 
         List<Date> dates = new ArrayList<>();
