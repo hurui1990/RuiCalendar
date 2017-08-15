@@ -167,11 +167,11 @@ public class RuiLunar {
 	}
 
 	public static String getChinaDayString(int day) {
-		String chineseTen[] = {"", "十", "廿", "三"};
+		String chineseTen[] = {"初", "十", "廿", "三"};
 		int n = day % 10 == 0 ? 9 : day % 10 - 1;
 		if (day > 30)
 			return "";
-		if (day <= 10)
+		if (day == 10)
 			return "初十";
 		else
 			return chineseTen[day / 10] + chineseNumber[n];

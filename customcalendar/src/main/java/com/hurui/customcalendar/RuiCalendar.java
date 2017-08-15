@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,14 +22,22 @@ import java.util.List;
  * Created by hurui on 2017/8/14.
  */
 
-public class RuiCalendar extends LinearLayout implements View.OnClickListener {
+public class RuiCalendar extends LinearLayout implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private LayoutInflater mLayoutInflater;
     private ImageView mBtnPre;
     private ImageView mBtnNext;
     private TextView mTxtDate;
-    private RuiGridView mGridView;
+    private GridView mGridView;
     private Calendar mCalendar = Calendar.getInstance();
+    private RuiCalendarAdapter mAdapter;
+    private List<Date> dates;
+    private OnItemClickListener mOnItemClickListener;
+    private int mClickPosition;
+
+    public interface OnItemClickListener{
+        void onItemClick(Date date);
+    }
 
     public RuiCalendar(Context context) {
         super(context);
@@ -51,7 +61,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         mBtnPre = (ImageView) findViewById(R.id.btn_pre);
         mBtnNext = (ImageView) findViewById(R.id.btn_next);
         mTxtDate = (TextView) findViewById(R.id.txt_date);
-        mGridView = (RuiGridView) findViewById(R.id.grid_calendar);
+        mGridView = (GridView) findViewById(R.id.grid_calendar);
 
         mBtnPre.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
@@ -64,7 +74,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
         mTxtDate.setText(sdf.format(mCalendar.getTime()));
 
-        List<Date> dates = new ArrayList<>();
+        dates = new ArrayList<>();
         Calendar calendar = (Calendar) mCalendar.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayWeek = calendar.get(Calendar.DAY_OF_WEEK)-1;
@@ -83,7 +93,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
             dates.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        mGridView.setAdapter(new RuiCalendarAdapter(getContext(), dates));
+        mAdapter = new RuiCalendarAdapter(getContext(), dates);
+        mGridView.setAdapter(mAdapter);
+        mGridView.setOnItemClickListener(this);
     }
 
     //获取当前月的总天数
@@ -103,6 +115,17 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         } else if (i == R.id.btn_next) {
             mCalendar.add(Calendar.MONTH, 1);
             renderCalendar();
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mOnItemClickListener = listener;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if(mOnItemClickListener != null){
+            mOnItemClickListener.onItemClick(dates.get(i));
         }
     }
 }

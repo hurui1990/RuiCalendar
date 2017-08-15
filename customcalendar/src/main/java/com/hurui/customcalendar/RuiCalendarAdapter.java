@@ -2,6 +2,7 @@ package com.hurui.customcalendar;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class RuiCalendarAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<Date> mDates;
 	private LayoutInflater mInflater;
+	private ViewHolder viewHolder = null;
 
 	public RuiCalendarAdapter(Context context, List<Date> dates){
 		mContext = context;
@@ -45,9 +47,8 @@ public class RuiCalendarAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View contentView, ViewGroup parent) {
-		Date itemDate = mDates.get(position);
+		final Date itemDate = mDates.get(position);
 		Date nowDate = new Date();
-		ViewHolder viewHolder = null;
 		if(contentView == null){
 			viewHolder = new ViewHolder();
 			contentView = mInflater.inflate(R.layout.calendar_day_view, parent,false);
