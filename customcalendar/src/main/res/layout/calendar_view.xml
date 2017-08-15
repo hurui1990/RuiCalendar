@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
         <ImageView
             android:id="@+id/btn_pre"
@@ -49,6 +49,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="一"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -56,6 +57,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="二"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -63,6 +65,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="三"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -70,6 +73,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="四"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -77,6 +81,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="五"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -84,6 +89,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="六"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <TextView
@@ -91,16 +97,17 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="日"
+            android:textSize="18sp"
             android:gravity="center"/>
 
     </LinearLayout>
 
-    <GridView
+    <com.hurui.customcalendar.RuiGridView
         android:id="@+id/grid_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="7"
         android:gravity="center">
-    </GridView>
+    </com.hurui.customcalendar.RuiGridView>
 
 </LinearLayout>

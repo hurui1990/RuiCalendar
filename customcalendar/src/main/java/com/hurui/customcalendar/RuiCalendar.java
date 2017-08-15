@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +26,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
     private ImageView mBtnPre;
     private ImageView mBtnNext;
     private TextView mTxtDate;
-    private GridView mGridView;
+    private RuiGridView mGridView;
     private Calendar mCalendar = Calendar.getInstance();
 
     public RuiCalendar(Context context) {
@@ -52,7 +51,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         mBtnPre = (ImageView) findViewById(R.id.btn_pre);
         mBtnNext = (ImageView) findViewById(R.id.btn_next);
         mTxtDate = (TextView) findViewById(R.id.txt_date);
-        mGridView = (GridView) findViewById(R.id.grid_calendar);
+        mGridView = (RuiGridView) findViewById(R.id.grid_calendar);
 
         mBtnPre.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
@@ -93,7 +92,6 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         calendar.roll(Calendar.DATE, -1);
         int maxDate = calendar.get(Calendar.DATE);
         return maxDate;
-
     }
 
     @Override
@@ -102,12 +100,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener {
         if (i == R.id.btn_pre) {
             mCalendar.add(Calendar.MONTH, -1);
             renderCalendar();
-
-            //往后一个月
         } else if (i == R.id.btn_next) {
             mCalendar.add(Calendar.MONTH, 1);
             renderCalendar();
-
         }
     }
 }

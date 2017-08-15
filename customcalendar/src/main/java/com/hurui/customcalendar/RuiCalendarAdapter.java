@@ -2,7 +2,6 @@ package com.hurui.customcalendar;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,6 @@ public class RuiCalendarAdapter extends BaseAdapter {
 	public View getView(int position, View contentView, ViewGroup parent) {
 		Date itemDate = mDates.get(position);
 		Date nowDate = new Date();
-		Log.i("===========",""+itemDate);
 		ViewHolder viewHolder = null;
 		if(contentView == null){
 			viewHolder = new ViewHolder();
@@ -64,9 +62,9 @@ public class RuiCalendarAdapter extends BaseAdapter {
 			contentView.setVisibility(View.GONE);
 		}else {
 			contentView.setVisibility(View.VISIBLE);
-			Lunar lunar = new Lunar(itemDate);
+			RuiLunar lunar = new RuiLunar(itemDate);
 			viewHolder.txtDate.setText(String.valueOf(itemDate.getDate()));
-			viewHolder.txtLunarDate.setText(Lunar.getChinaDayString(lunar.day)+"");
+			viewHolder.txtLunarDate.setText(RuiLunar.getChinaDayString(lunar.day)+"");
 			if(nowDate.getDate() == itemDate.getDate()
 					&& nowDate.getYear() == itemDate.getYear()
 					&& nowDate.getMonth() == itemDate.getMonth()){
@@ -75,8 +73,6 @@ public class RuiCalendarAdapter extends BaseAdapter {
 				viewHolder.calendar_day.setBackgroundColor(Color.parseColor("#FFE6E4E5"));
 			}
 		}
-
-
 		return contentView;
 	}
 

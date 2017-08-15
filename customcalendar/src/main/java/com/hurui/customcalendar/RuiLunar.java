@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Lunar {
+public class RuiLunar {
 	private int year;
 	private int month;
 	public int day;
@@ -93,7 +93,7 @@ public class Lunar {
 	 * @param date
 	 * @return
 	 */
-	public Lunar(Date date) {
+	public RuiLunar(Date date) {
 		int yearCyl, monCyl, dayCyl;
 		int leapMonth = 0;
 		Date baseDate = null;
