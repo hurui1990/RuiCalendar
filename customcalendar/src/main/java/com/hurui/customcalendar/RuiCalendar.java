@@ -1,6 +1,7 @@
 package com.hurui.customcalendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -84,7 +85,6 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         calendar.add(Calendar.DAY_OF_MONTH, -(dayCountInCurrentMonth-1));
         int allDaysInView = firstDayWeek + dayCountInCurrentMonth - 1;
         for(int i=0; i < allDaysInView; i++){
-            Log.i("Hcalendar", calendar.getTime().toString());
             if(i<firstDayWeek-1){
                 dates.add(null);
                 continue;
@@ -127,5 +127,11 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         if(mOnItemClickListener != null){
             mOnItemClickListener.onItemClick(dates.get(i));
         }
+        int childCount = mGridView.getChildCount();
+        for(int n=0; n< childCount; n++){
+            Log.i("=========", n+"");
+            mGridView.getChildAt(n).setBackgroundColor(Color.parseColor("#00E6E4E5"));
+        }
+        mGridView.getChildAt(i).setBackgroundColor(Color.parseColor("#FFE6E4E5"));
     }
 }
