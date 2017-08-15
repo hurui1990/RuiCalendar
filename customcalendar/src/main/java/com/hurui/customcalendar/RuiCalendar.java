@@ -33,7 +33,6 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
     private RuiCalendarAdapter mAdapter;
     private List<Date> dates;
     private OnItemClickListener mOnItemClickListener;
-    private int mClickPosition;
 
     public interface OnItemClickListener{
         void onItemClick(Date date);
@@ -118,6 +117,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         }
     }
 
+    // 设置日历的点击事件
     public void setOnItemClickListener(OnItemClickListener listener){
         mOnItemClickListener = listener;
     }
