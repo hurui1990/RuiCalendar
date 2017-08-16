@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -129,7 +128,6 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         }
         int childCount = mGridView.getChildCount();
         for(int n=0; n< childCount; n++){
-            Log.i("=========", n+"");
             mGridView.getChildAt(n).setBackgroundColor(Color.parseColor("#00E6E4E5"));
         }
         mGridView.getChildAt(i).setBackgroundColor(Color.parseColor("#FFE6E4E5"));
