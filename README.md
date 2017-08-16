@@ -1,7 +1,6 @@
 # RuiCalendar
 自定义日历控件
 ### 使用手册
-该项目已经在github上面发布了，如果要调用的话需要在项目中添加下面几句代码
 project gradle.build中添加
 ```java
 allprojects {
