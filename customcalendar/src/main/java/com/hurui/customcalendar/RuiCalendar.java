@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by hurui on 2017/8/14.
+ * @author hurui
+ * @date 2017/8/14.
  */
 
 public class RuiCalendar extends LinearLayout implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -35,9 +36,15 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener{
+        /**
+         * @param date
+         */
         void onItemClick(Date date);
     }
 
+    /**
+     * @param context
+     */
     public RuiCalendar(Context context) {
         super(context);
     }
@@ -52,15 +59,18 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         initCalendar(context);
     }
 
-    //初始化日历控件
+    /**
+     * 初始化日历控件
+     * @param context
+     */
     private void initCalendar(Context context){
         mLayoutInflater = LayoutInflater.from(context);
         mLayoutInflater.inflate(R.layout.calendar_view,this);
 
-        mBtnPre = (ImageView) findViewById(R.id.btn_pre);
-        mBtnNext = (ImageView) findViewById(R.id.btn_next);
-        mTxtDate = (TextView) findViewById(R.id.txt_date);
-        mGridView = (GridView) findViewById(R.id.grid_calendar);
+        mBtnPre =  findViewById(R.id.btn_pre);
+        mBtnNext =  findViewById(R.id.btn_next);
+        mTxtDate =  findViewById(R.id.txt_date);
+        mGridView =  findViewById(R.id.grid_calendar);
 
         mBtnPre.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
@@ -68,7 +78,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         renderCalendar();
     }
 
-    //获取当前月的数据
+    /**
+     * 获取当前月的数据
+     */
     private void renderCalendar(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
         mTxtDate.setText(sdf.format(mCalendar.getTime()));
@@ -96,7 +108,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         mGridView.setOnItemClickListener(this);
     }
 
-    //获取当前月的总天数
+    /**
+     * 获取当前月的总天数
+     */
     public static int getCurrentMonthDay(Calendar calendar) {
         calendar.set(Calendar.DATE, 1);
         calendar.roll(Calendar.DATE, -1);
@@ -116,7 +130,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         }
     }
 
-    // 设置日历的点击事件
+    /**
+     * 设置日历的点击事件
+     */
     public void setOnItemClickListener(OnItemClickListener listener){
         mOnItemClickListener = listener;
     }

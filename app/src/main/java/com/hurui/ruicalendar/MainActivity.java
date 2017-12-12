@@ -10,6 +10,9 @@ import com.hurui.customcalendar.RuiCalendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author hurui
+ */
 public class MainActivity extends AppCompatActivity implements RuiCalendar.OnItemClickListener {
 
 	private RuiCalendar mRuiCalendar;
@@ -20,13 +23,16 @@ public class MainActivity extends AppCompatActivity implements RuiCalendar.OnIte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		mRuiCalendar = (RuiCalendar) findViewById(R.id.ruicalendar);
-		mTextView = (TextView) findViewById(R.id.txt_selcet);
+		mRuiCalendar =  findViewById(R.id.ruicalendar);
+		mTextView =  findViewById(R.id.txt_selcet);
 
 		mRuiCalendar.setOnItemClickListener(this);
 	}
 
-	//日历点击事件的回调
+	/**
+	 * 日历点击事件的回调
+	 * @param date
+	 */
 	@Override
 	public void onItemClick(Date date) {
 		Log.i("=========", date.toString());

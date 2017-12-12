@@ -2,7 +2,6 @@ package com.hurui.customcalendar;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by hurui on 2017/8/14.
+ * @author hurui
  */
-
 public class RuiCalendarAdapter extends BaseAdapter {
 
-	private Context mContext;
 	private List<Date> mDates;
 	private LayoutInflater mInflater;
 	private ViewHolder viewHolder = null;
 
 	public RuiCalendarAdapter(Context context, List<Date> dates){
-		mContext = context;
 		mDates = dates;
 		mInflater = LayoutInflater.from(context);
 	}
@@ -52,9 +48,9 @@ public class RuiCalendarAdapter extends BaseAdapter {
 		if(contentView == null){
 			viewHolder = new ViewHolder();
 			contentView = mInflater.inflate(R.layout.calendar_day_view, parent,false);
-			viewHolder.txtDate = (TextView) contentView.findViewById(R.id.txt_calendar_day);
-			viewHolder.txtLunarDate = (TextView) contentView.findViewById(R.id.txt_lunar_date);
-			viewHolder.calendar_day = (LinearLayout) contentView.findViewById(R.id.calendar_day_view);
+			viewHolder.txtDate =  contentView.findViewById(R.id.txt_calendar_day);
+			viewHolder.txtLunarDate =  contentView.findViewById(R.id.txt_lunar_date);
+			viewHolder.calendar_day =  contentView.findViewById(R.id.calendar_day_view);
 			contentView.setTag(viewHolder);
 		}else {
 			viewHolder = (ViewHolder) contentView.getTag();
