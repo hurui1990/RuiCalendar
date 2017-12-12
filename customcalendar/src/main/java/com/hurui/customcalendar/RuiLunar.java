@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author hurui
+ */
 public class RuiLunar {
 	private int year;
 	private int month;
@@ -32,53 +35,85 @@ public class RuiLunar {
 					0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
 					0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0};
 
-	//====== 传回农历 y年的总天数
+	/**
+	 * 传回农历 y年的总天数
+	 * @param y
+	 * @return
+	 */
 	final private static int yearDays(int y) {
 		int i, sum = 348;
 		for (i = 0x8000; i > 0x8; i >>= 1) {
-			if ((lunarInfo[y - 1900] & i) != 0) sum += 1;
+			if ((lunarInfo[y - 1900] & i) != 0) {
+				sum += 1;
+			}
 		}
 		return (sum + leapDays(y));
 	}
 
-	//====== 传回农历 y年闰月的天数
+	/**
+	 * 传回农历 y年闰月的天数
+	 * @param y
+	 * @return
+	 */
 	final private static int leapDays(int y) {
 		if (leapMonth(y) != 0) {
-			if ((lunarInfo[y - 1900] & 0x10000) != 0)
+			if ((lunarInfo[y - 1900] & 0x10000) != 0) {
 				return 30;
-			else
+			} else {
 				return 29;
-		} else
+			}
+		} else {
 			return 0;
+		}
 	}
 
-	//====== 传回农历 y年闰哪个月 1-12 , 没闰传回 0
+	/**
+	 * 传回农历 y年闰哪个月 1-12 , 没闰传回 0
+	 * @param y
+	 * @return
+	 */
 	final private static int leapMonth(int y) {
 		return (int) (lunarInfo[y - 1900] & 0xf);
 	}
 
-	//====== 传回农历 y年m月的总天数
+	/**
+	 * 传回农历y年m月的总天数
+	 * @param y
+	 * @param m
+	 * @return
+	 */
 	final private static int monthDays(int y, int m) {
-		if ((lunarInfo[y - 1900] & (0x10000 >> m)) == 0)
+		if ((lunarInfo[y - 1900] & (0x10000 >> m)) == 0) {
 			return 29;
-		else
+		} else {
 			return 30;
+		}
 	}
 
-	//====== 传回农历 y年的生肖
+	/**
+	 * 传回农历 y年的生肖
+	 * @return
+	 */
 	final public String animalsYear() {
 		final String[] Animals = new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
 		return Animals[(year - 4) % 12];
 	}
 
-	//====== 传入 月日的offset 传回干支, 0=甲子
+	/**
+	 * 传入 月日的offset 传回干支, 0=甲子
+	 * @param num
+	 * @return
+	 */
 	final private static String cyclicalm(int num) {
 		final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
 		final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
 		return (Gan[num % 10] + Zhi[num % 12]);
 	}
 
-	//====== 传入 offset 传回干支, 0=甲子
+	/**
+	 * 传入 offset 传回干支, 0=甲子
+	 * @return
+	 */
 	final public String cyclical() {
 		int num = year - 1900 + 36;
 		return (cyclicalm(num));
@@ -103,15 +138,15 @@ public class RuiLunar {
 			e.printStackTrace(); //To change body of catch statement use Options | File Templates.
 		}
 
-//求出和1900年1月31日相差的天数
+		//求出和1900年1月31日相差的天数
 		int offset = (int) ((date.getTime() - baseDate.getTime()) / 86400000L);
 		dayCyl = offset + 40;
 		monCyl = 14;
 
-//用offset减去每农历年的天数
-// 计算当天是农历第几天
-//i最终结果是农历的年份
-//offset是当年的第几天
+		//用offset减去每农历年的天数
+		// 计算当天是农历第几天
+		//i最终结果是农历的年份
+		//offset是当年的第几天
 		int iYear, daysOfYear = 0;
 		for (iYear = 1900; iYear < 2050 && offset > 0; iYear++) {
 			daysOfYear = yearDays(iYear);
@@ -123,30 +158,36 @@ public class RuiLunar {
 			iYear--;
 			monCyl -= 12;
 		}
-//农历年份
+		//农历年份
 		year = iYear;
 
 		yearCyl = iYear - 1864;
-		leapMonth = leapMonth(iYear); //闰哪个月,1-12
+		//闰哪个月,1-12
+		leapMonth = leapMonth(iYear);
 		leap = false;
 
-//用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
+		//用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
 		int iMonth, daysOfMonth = 0;
 		for (iMonth = 1; iMonth < 13 && offset > 0; iMonth++) {
-//闰月
+		//闰月
 			if (leapMonth > 0 && iMonth == (leapMonth + 1) && !leap) {
 				--iMonth;
 				leap = true;
 				daysOfMonth = leapDays(year);
-			} else
+			} else {
 				daysOfMonth = monthDays(year, iMonth);
+			}
 
 			offset -= daysOfMonth;
-//解除闰月
-			if (leap && iMonth == (leapMonth + 1)) leap = false;
-			if (!leap) monCyl++;
+			//解除闰月
+			if (leap && iMonth == (leapMonth + 1)) {
+				leap = false;
+			}
+			if (!leap) {
+				monCyl++;
+			}
 		}
-//offset为0时，并且刚才计算的月份是闰月，要校正
+		//offset为0时，并且刚才计算的月份是闰月，要校正
 		if (offset == 0 && leapMonth > 0 && iMonth == leapMonth + 1) {
 			if (leap) {
 				leap = false;
@@ -156,7 +197,7 @@ public class RuiLunar {
 				--monCyl;
 			}
 		}
-//offset小于0时，也要校正
+		//offset小于0时，也要校正
 		if (offset < 0) {
 			offset += daysOfMonth;
 			--iMonth;
@@ -167,16 +208,19 @@ public class RuiLunar {
 	}
 
 	public static String getChinaDayString(int day) {
-		String chineseTen[] = {"初", "十", "廿", "三"};
+		String[] chineseTen = {"初", "十", "廿", "三"};
 		int n = day % 10 == 0 ? 9 : day % 10 - 1;
-		if (day > 30)
+		if (day > 30) {
 			return "";
-		if (day == 10)
+		}
+		if (day == 10) {
 			return "初十";
-		else
+		} else {
 			return chineseTen[day / 10] + chineseNumber[n];
+		}
 	}
 
+	@Override
 	public String toString() {
 		return year + "年" + (leap ? "闰" : "") + chineseNumber[month - 1] + "月" + getChinaDayString(day);
 	}

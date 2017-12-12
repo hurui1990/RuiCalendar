@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,6 +75,7 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
 
         mBtnPre.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
+        mTxtDate.setOnClickListener(this);
 
         renderCalendar();
     }
@@ -127,6 +129,9 @@ public class RuiCalendar extends LinearLayout implements View.OnClickListener, A
         } else if (i == R.id.btn_next) {
             mCalendar.add(Calendar.MONTH, 1);
             renderCalendar();
+        } else if (i == R.id.txt_date) {
+            Log.i("选择年", (mCalendar.getTime().getYear()+1900)+"");
+            Log.i("选择月", (mCalendar.getTime().getMonth()+1)+"");
         }
     }
 
